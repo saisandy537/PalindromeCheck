@@ -1,0 +1,45 @@
+﻿@model List<Palindrome.Models.PalindromeViewModel>
+@using Palindrome.Models;
+
+@{
+    ViewBag.Title = "Palindrome";
+}
+
+<h2>Palindrome Result</h2>
+
+@if (Model != null) //nullcheck
+{
+    foreach (var item in Model)
+    {
+        if (item.ErrorCount > 0)
+        {
+            <p style="color:red">Error Message: @item.ErrorMessage</p>
+            <p style="color:red">number of Error: @item.ErrorCount</p>
+        }
+        else if (item.WarningCount > 0)
+        {
+            <p style="color:orange">Error Message: @item.WarningMessage</p>
+            <p style="color:orange">number of Error: @item.WarningCount</p>
+        }
+        else if (!string.IsNullOrEmpty(item.GivenString))
+        {
+            <p>
+                string: @item.GivenString,
+            </p>
+            <p>
+                Result: @item.FinalResult
+            </p>
+            string status = item.FinalResult ? "Palindrome" : "Not Palindrome";
+            string color = @item.FinalResult ? "blue" : "red";
+            <p style="color: @color">@item.GivenString is @status</p>
+        }
+        else
+        {
+            <p>
+                string: string is empty
+            </p>
+        }
+    }
+}
+
+
